@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="rat"></div> <div id="rat1"></div>
+<div id="cat"></div>
+
+    <script>
+        let rat = function (image,top,left,size) {
+            this.image = image;
+            this.top = top;
+            this.left = left;
+            this.size = size;
+            this.status = true;
+            this.setStatus = function (status) {
+                this.status = status;
+            };
+            this.getStatus =function () {
+                return this.status;
+            }
+            this.setWeight = function (weight =5) {
+                this.weight = weight;
+            };
+            this.getWeight = function () {
+                return this.weight;
+            };
+            this.getRatElement = function () {
+                return '<img width="'+ this.size + '"' +
+                    ' height="'+ this.size + '"' +
+                    ' src="' + this.image +'"' +
+                    ' style="top: '+this.top+'px; left:'+this.left+'px;position:absolute;" />';
+            };
+            this.move = function (speed) {
+                this.left = Math.random()*200*speed;
+                this.top = Math.random()*200*speed;
+            };
+            this.stop = function (speed) {
+                this.left = speed;
+            };
+            this.say = function () {
+                alert("chit chit");
+            };
+        };
+
+        let cat = function (image,top,left,size) {
+            this.image = image;
+            this.top = top;
+            this.left = left;
+            this.size = size;
+
+            this.getCatElement = function () {
+                return '<img width="'+ this.size + '"' +
+                    ' height="'+ this.size + '"' +
+                    ' src="' + this.image +'"' +
+                    ' style="top: '+this.top+'px; left:'+this.left+'px;position:absolute;" />';
+            };
+            this.move = function () {
+                this.left = Math.random()*700;
+                this.top = Math.random()*700;
+            };
+            this.catchTheRat = function (rat) {
+                alert("Catch");
+                rat.stop();
+            };
+            this.setWeight = function (weight =10 ) {
+                this.weight = weight;
+            };
+            this.getWeight = function (rat) {
+                return this.weight + rat.getWeight();
+            };
+            this.say = function () {
+                alert("Meo meo");
+            };
+
+        };
+        let Mouse = new rat('rat.jpg',30,200,75);
+        let Mouse1 = new rat('rat.jpg',30,200,75);
+        let Cat = new cat('cat.jpg',30,50,75);
+        function Ratstart(){
+            Mouse.setStatus(true);
+            document.getElementById('rat').innerHTML = Mouse.getRatElement();
+            if(Mouse.left < window.innerWidth - Mouse.size){
+                Mouse.move(5);
+            }
+            Mouse.setWeight(5);
+            setTimeout(Ratstart,300);
+        }
+        Ratstart();
+        function Rat1start(){
+            Mouse1.setStatus(true);
+            document.getElementById('rat1').innerHTML = Mouse1.getRatElement();
+            if(Mouse1.left < window.innerWidth - Mouse1.size){
+                Mouse1.move(5);
+            }
+            Mouse1.setWeight(5);
+            setTimeout(Rat1start,300);
+        }
+        Rat1start();
+        function catStart() {
+            document.getElementById('cat').innerHTML = Cat.getCatElement();
+            if(Cat.left < window.innerWidth - Cat.size){
+                Cat.move();
+            }
+            Cat.setWeight(10);
+            if (Cat.left + Cat.size == Mouse.left )
+            {
+                Cat.catchTheRat(Mouse);
+                Mouse.setStatus(false);
+                console.log(Mouse.getStatus());
+                console.log(Cat.getWeight(Mouse));
+            }
+            setTimeout(catStart,500);
+        }
+       catStart();
+    </script>
+</body>
+</html>
