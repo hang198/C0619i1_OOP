@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img src="../FlashLamp/FlashLamp/img/lampOn.png" height="486" width="880"/>
+<script>
+
+        let ElectricLamp = function (status) {
+            this.status = status;
+            this.setElectricLamp = function () {
+
+            };
+            this.turnOn = function(){
+                alert("The Light is ON");
+            };
+        this.turnOff = function () {
+            alert("The Light is OFF");
+        };
+        };
+        let SwitchButton = function () {
+            this.connectToLamp = function (ElectricLamp) {
+                this.ElectricLamp = ElectricLamp;
+            };
+        let switchOff = function () {
+
+        };
+        };
+</script>
+</body>
+</html>
